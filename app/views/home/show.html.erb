@@ -1,0 +1,15 @@
+<h1>login</h1>
+
+<%= flash[:alert] if flash[:alert]%>
+
+<%= form_tag('/home/create', method: "POST") do %>
+	<%= fields_for :user do |ff| %>
+		<%= ff.email_field(:email, :placeholder => "email") %>
+		<%= ff.password_field(:password, :placeholder => "password") %>
+		<%= ff.submit("log in!") %>
+	<% end %>
+<% end %>
+
+<h2>not signed up yet?<h2>
+
+<%= link_to(("sign Up!"), "/users/new")%>

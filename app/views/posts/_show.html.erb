@@ -1,0 +1,50 @@
+<li class="post_text">
+	<% if @current_user.id == post.user_id %>
+		<% flash[:bad] if flash[:bad] %>
+		<form action=<%= "/post/#{post.id}" %> method="POST">
+		<textarea name="title"><%= "#{post.title}" %></textarea>
+		<textarea name="text"><%= "#{post.text}" %></textarea>
+		<input type="submit" name="update" value="update post">
+		</form>
+	<% else %>
+		<%= "#{ post.text }" %>
+	<% end %>
+</li>
+<li class="post_author">by <a href=<%= "/user/#{ post.user_id }" %>> <%= "#{ post.user.username }" %></a>
+</li>
+<li class="post_timestamp">last updated <%= "#{ post.created_at }" %>
+</li>
+<% if @current_user.id == post.user_id %>
+	<li class="post_delete"><a href=<%= "/post/#{ post.id }/delete" %>>delete</a><%= flash[:post_delete] if flash[:post_delete] %>
+	</li>
+<% end %>
+<% if !@comments.empty? %>
+	<% @comments.each do |comment| %>
+		<li class="post_comment">
+			<ul>
+				<li class="comment_text">
+					<% if @current_user.id == comment.user_id %>
+						<% flash[:bad] if flash[:bad] %>
+						<form action=<%= "/comment/#{comment.id}" %> method="POST">
+						<textarea name="text"><%= "#{comment.text}" %></textarea>
+						<input type="submit" name="update" value="update comment">
+						</form>
+					<% else %>
+						<%= "#{ comment.text }" %>
+					<% end %>
+				</li>
+				<li class="comment_author">by <a href=<%= "/user/#{ comment.user_id }" %>> <%= "#{ comment.user.username }" %></a>
+				</li>
+				<% if @current_user.id == comment.user_id %>
+					<li class="post_delete"><a href=<%= "/post/#{ post.id }/delete" %>>delete</a><%= flash[:post_delete] if flash[:post_delete] %>
+					</li>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+<% end %>
+
+
+
+
+

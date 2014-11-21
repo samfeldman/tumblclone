@@ -1,0 +1,27 @@
+
+<div class="newpost" >
+	<% flash[:notice] if flash[:notice] %> 
+	<% flash[:alert] if flash[:alert] %> 
+	<h1>post something!</h1>
+	<form action="/post/create" method="POST">
+		<textarea name="text" placeholder="post something here!"></textarea>
+		<input type="submit" name="postbutton" value="post">
+	</form>
+</div>
+
+<div class="postfeed">
+	<% if !@following_posts.empty? %>
+		<h1>feed</h1>
+			<ul> 
+				<% @following_posts.each do |post| %>
+					<li>
+	        			<%= render partial: "./posts/show",
+	                   		locals: { post: post, } %>
+						<% end %>
+					</li>
+				<% end %>
+			</ul>
+	<% else %>
+		<h2>no posts to show! make some posts or make sure you are following other users.</h2>
+	<% end %>
+</div>
