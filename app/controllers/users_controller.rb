@@ -5,38 +5,62 @@ class UsersController < ApplicationController
   end
 
   def create
-
     @user = User.new(user_params)
-    if @user.save && user_params[:email] != nil && user_params[:password] != nil
-      sessions[:user_id] = @user.id
+    if @user.save 
+      session[:user_id] = @user.id
       redirect_to "/home/dash"
     else 
-      flash[:alert] = "Please fill in all fields."
+      flash[:alert] = @user.errors.full_messages
       redirect_to :back
     end
   end
 
   def show
+    current_user
     @user = User.find(params[:id])
     @posts = Post.where(user_id: params[:id])
-    @followers = 
-
+    @followers = @user.followers.all
   end
 
-  def show_edit
+  def edit
+    current_user
+    @user = User.find(params[:id])
   end
 
-  def set_edit
+  def edit_update
+    current_user
+    @user = User.find(params[:id])
+    if @current_user.id = @user.id
+      @user.update(user_params)
+      flash[:notice] = "updates saved!"
+    else
+      flash[:alert] = "updates not saved; please try again."
+    end
+    redirect_to "/users/#{@user.id}/edit"
   end
 
-  def index
-  end
-
-  def update
-    user_params
+  def show_update
+    current_user
+    @user = User.find(params[:id])
+    if @current_user.id = @user.id
+      @user.update(user_params)
+      flash[:notice] = "updates saved!"
+    else
+      flash[:alert] = "updates not saved; please try again."
+    end
+    redirect_to "/users/#{@user.id}/show"
   end
 
   def destroy
+    current_user
+    @user = User.find(params[:id])
+    if @current_user.id = @user.id
+      @user.destroy
+    else
+      flash[:alert] = "you are not give permission to destroy this user."
+      redirect_to :back
+    end
+    redirect_to '/'
   end
 
   private

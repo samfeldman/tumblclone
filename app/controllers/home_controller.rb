@@ -21,7 +21,7 @@ class HomeController < ApplicationController
 	end
 
 	def dash
-
+		@users = User.all.username.sort_by{|username| username.downcase}
 	# if @current_user 
   #     @followers = @current_user.followers
   #     @followees = @current_user.followees
