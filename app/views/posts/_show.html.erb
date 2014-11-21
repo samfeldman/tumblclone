@@ -1,4 +1,4 @@
-<li class="post_text">
+<li class="post_update">
 	<% if @current_user.id == post.user_id %>
 		<% flash[:bad] if flash[:bad] %>
 		<form action=<%= "/post/#{post.id}" %> method="POST">
@@ -7,6 +7,7 @@
 		<input type="submit" name="update" value="update post">
 		</form>
 	<% else %>
+		<%= "#{ post.title }" %>
 		<%= "#{ post.text }" %>
 	<% end %>
 </li>
@@ -18,6 +19,8 @@
 	<li class="post_delete"><a href=<%= "/post/#{ post.id }/delete" %>>delete</a><%= flash[:post_delete] if flash[:post_delete] %>
 	</li>
 <% end %>
+
+
 <% if !@comments.empty? %>
 	<% @comments.each do |comment| %>
 		<li class="post_comment">

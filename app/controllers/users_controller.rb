@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   def edit_update
     current_user
     @user = User.find(params[:id])
-    if @current_user.id = @user.id
+    if @current_user.id == @user.id
       @user.update(user_params)
       flash[:notice] = "updates saved!"
     else
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   def show_update
     current_user
     @user = User.find(params[:id])
-    if @current_user.id = @user.id
+    if @current_user.id == @user.id
       @user.update(user_params)
       flash[:notice] = "updates saved!"
     else
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   def destroy
     current_user
     @user = User.find(params[:id])
-    if @current_user.id = @user.id
+    if @current_user.id == @user.id
       @user.destroy
     else
       flash[:alert] = "you are not give permission to destroy this user."

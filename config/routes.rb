@@ -6,14 +6,14 @@ Rails.application.routes.draw do
 
   post 'home/create'
 
-  get 'home/dash' => 'home#dash'
+  get 'home/:id/dash' => 'home#dash'
 
   post 'users/:id/edit_update' => 'users#edit_update'
 
   post 'users/:id/show_update' => 'users#show_update'
 
   resources :users, except: [:update]
-  resources :posts
+  resources :posts, except: [:show, :index]
   resources :comments, only: [:create, :destroy, :update]
 
 
