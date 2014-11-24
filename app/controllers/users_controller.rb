@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     current_user
     @user = User.find(params[:id])
     @posts = Post.where(user_id: params[:id])
-    @followers = @user.followers.all
+    @followers = @user.followers.all.sort_bye{|username| Follow.username.downcase}
   end
 
   def edit
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     if @current_user.id == @user.id
       @user.destroy
     else
-      flash[:alert] = "you are not give permission to destroy this user."
+      flash[:alert] = "you are not given permission to destroy this user."
       redirect_to :back
     end
     redirect_to '/'

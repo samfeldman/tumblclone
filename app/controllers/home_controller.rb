@@ -21,16 +21,17 @@ class HomeController < ApplicationController
 	end
 
 	def dash
-		@users = User.all.username.sort_by{|username| username.downcase}
-	if @current_user 
-      @followers = @current_user.followers
-      @followees = @current_user.followees
-       	if !@following.empty?
-            @following_posts = @followees.map(&:posts).flatten.sort_by(&:created_at)
-        else 
-            @following_posts = []
-        end
-    end
+		current_user
+		@users = User.all.sort_by{|username| User.username.downcase}
+		if @current_user 
+	      @followers = @current_user.followers
+	      @followees = @current_user.followees
+	       	if !@following.empty?
+	            @following_posts = @followees.map(&:posts).flatten.sort_by(&:created_at)
+	        else 
+	            @following_posts = []
+	        end
+	    end
 
 	end
 

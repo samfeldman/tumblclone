@@ -7,8 +7,22 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+	<%if session[:user_id] %>
+		<nav>
+			<ul>
+				<li><a href="<%= /home/destroy %>">logout</a>
+				</li>
+				<li><a href="<%= /users/#{@current_user.id}/edit %>">settings</a>
+				</li>
+				<li><a href="<%= /users/#{@current_user.id} %>">blog</a>
+				</li>
+				<li><a href="<%= /users/#{@current_user.id}/dash %>">dashboard</a>
+				</li>
+			</ul>
+		</nav>
+	<% end %>
+	<div class="wrapper">
+		<%= yield %>
+	</div>
 </body>
 </html>

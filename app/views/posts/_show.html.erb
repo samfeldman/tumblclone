@@ -1,6 +1,6 @@
 <li class="post_update">
 	<% if @current_user.id == post.user_id %>
-		<% flash[:bad] if flash[:bad] %>
+		<% flash[:alert] if flash[:alert] %>
 		<form action=<%= "/post/#{post.id}" %> method="POST">
 		<textarea name="title"><%= "#{post.title}" %></textarea>
 		<textarea name="text"><%= "#{post.text}" %></textarea>
@@ -27,7 +27,7 @@
 			<ul>
 				<li class="comment_text">
 					<% if @current_user.id == comment.user_id %>
-						<% flash[:bad] if flash[:bad] %>
+						<% flash[:alert] if flash[:alert] %>
 						<form action=<%= "/comment/#{comment.id}" %> method="POST">
 						<textarea name="text"><%= "#{comment.text}" %></textarea>
 						<input type="submit" name="update" value="update comment">
@@ -39,7 +39,7 @@
 				<li class="comment_author">by <a href=<%= "/user/#{ comment.user_id }" %>> <%= "#{ comment.user.username }" %></a>
 				</li>
 				<% if @current_user.id == comment.user_id %>
-					<li class="post_delete"><a href=<%= "/post/#{ post.id }/delete" %>>delete</a><%= flash[:post_delete] if flash[:post_delete] %>
+					<li class="comment_delete"><a href=<%= "/post/#{ post.id }/delete" %>>delete</a><%= flash[:post_delete] if flash[:post_delete] %>
 					</li>
 				<% end %>
 			</ul>

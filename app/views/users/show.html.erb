@@ -1,2 +1,28 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<% if @current_user.id == @user.id %> 
+	<%= form_for @user do |f| %>
+		<%= f.text_field :title, "#{ user.title }" %>
+		<%= f.email_field :aboutme, "#{ user.aboutme }" %>
+		<%= f.submit "update" %>
+	<% end %>
+<% else %>
+	<h1><%="#{ @user.title }"%></h1> 
+	<h2><%="#{ @user.aboutme }"%></h2> 
+<% end %>
+
+<ul>
+	<% for @posts.each do |post| %>
+		<li>
+			<%= render partial: "./posts/show",
+           		locals: { post: post } %>
+			<% end %>
+		</li>
+	<% end %>
+</ul>
+
+<h2 class="follow_list">followers</h2>
+<% for @followers.each do |follower| %>
+	<li>
+		<a href=<%= "/user/#{ follower.user_id }" %>> <%= "#{ post.user.username }" %></a>
+	</li>
+<% end %>
+

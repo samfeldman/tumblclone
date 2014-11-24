@@ -1,8 +1,9 @@
+<h1>dashboard</h1>
 
 <div class="newpost" >
 	<% flash[:notice] if flash[:notice] %> 
 	<% flash[:alert] if flash[:alert] %> 
-	<h1>post something!</h1>
+	<h2>post something!</h2>
 	<form action="/post/create" method="POST">
 		<textarea name="text" placeholder="post something here!"></textarea>
 		<input type="submit" name="postbutton" value="post">
@@ -11,17 +12,27 @@
 
 <div class="postfeed">
 	<% if !@following_posts.empty? %>
-		<h1>feed</h1>
+		<h2>feed</h2>
 			<ul> 
 				<% @following_posts.each do |post| %>
 					<li>
 	        			<%= render partial: "./posts/show",
-	                   		locals: { post: post, } %>
+	                   		locals: { post: post } %>
 						<% end %>
 					</li>
 				<% end %>
 			</ul>
 	<% else %>
-		<h2>no posts to show! make some posts or make sure you are following other users.</h2>
+		<h3>no posts to show! make some posts or make sure you are following other users.</h3>
 	<% end %>
+</div>
+
+<div class="user_list">
+	<h2>user list</h2>
+	<ul>
+		<%=	for @users.each do |user| %>
+			<li><a href=<% "/user/#{ user.id }/show" %>><%= "#{ user.username }"%></a>
+			</li>
+		<% end %>
+	</ul>
 </div>
