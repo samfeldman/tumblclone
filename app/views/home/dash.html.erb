@@ -4,10 +4,17 @@
 	<% flash[:notice] if flash[:notice] %> 
 	<% flash[:alert] if flash[:alert] %> 
 	<h2>post something!</h2>
-	<form action="/post/create" method="POST">
-		<textarea name="text" placeholder="post something here!"></textarea>
-		<input type="submit" name="postbutton" value="post">
-	</form>
+	<%= "#{@current_user.id}" %>
+	<%= "#{params[:id]}" %>
+	<% if @current_user.id == params[:id] %>
+	<h3>hello</h3>
+	<% end %>
+			<%= form_for @post do |f| %>
+			<%= f.text_field :title %>
+			<%= f.text_field :text %>
+			<%= f.hidden_field :user_id  %>
+			<%= f.submit "create post" %>
+			<% end %>
 </div>
 
 <div class="postfeed">
@@ -18,7 +25,6 @@
 					<li>
 	        			<%= render partial: "./posts/show",
 	                   		locals: { post: post } %>
-						<% end %>
 					</li>
 				<% end %>
 			</ul>
@@ -30,8 +36,10 @@
 <div class="user_list">
 	<h2>user list</h2>
 	<ul>
-		<%=	for @users.each do |user| %>
-			<li><a href=<% "/user/#{ user.id }/show" %>><%= "#{ user.username }"%></a>
+		<% @users.each do |user| %>
+			<li>
+			<a href="/users/<%= "#{ user.id }" %>"><%= "#{ user.username }"%>
+			</a>
 			</li>
 		<% end %>
 	</ul>

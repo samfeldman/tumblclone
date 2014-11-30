@@ -1,28 +1,37 @@
+<%= flash[:notice] if flash[:notice] %>
+<%= flash[:alert] if flash[:alert] %>
+
 <% if @current_user.id == @user.id %> 
 	<%= form_for @user do |f| %>
-		<%= f.text_field :title, "#{ user.title }" %>
-		<%= f.email_field :aboutme, "#{ user.aboutme }" %>
+		<%= f.text_field :title %>
+		<h2>about me</h2>
+		<%= f.text_area :aboutme %>
 		<%= f.submit "update" %>
 	<% end %>
 <% else %>
 	<h1><%="#{ @user.title }"%></h1> 
-	<h2><%="#{ @user.aboutme }"%></h2> 
+	<% if @follow %>
+		<%= link_to( ("unfollow"), "/follow/#{ @user.id }", method: :delete) %>
+	<% else %>
+		<%= link_to( ("follow"), "/follow/#{ @user.id }", method: :post) %>
+	<% end %>
+	<h2>about me</h2> 
+	<p><%="#{ @user.aboutme }"%><p>
 <% end %>
 
 <ul>
-	<% for @posts.each do |post| %>
+	<% @posts.each do |post| %>
 		<li>
 			<%= render partial: "./posts/show",
            		locals: { post: post } %>
-			<% end %>
 		</li>
 	<% end %>
 </ul>
 
 <h2 class="follow_list">followers</h2>
-<% for @followers.each do |follower| %>
+<% @followers.each do |follower| %>
 	<li>
-		<a href=<%= "/user/#{ follower.user_id }" %>> <%= "#{ post.user.username }" %></a>
+		<a href=<%= "/users/#{ follower.id }" %>> <%= "#{ follower.username }" %></a>
 	</li>
 <% end %>
 

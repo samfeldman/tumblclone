@@ -8,11 +8,12 @@ Rails.application.routes.draw do
 
   get 'home/:id/dash' => 'home#dash'
 
-  post 'users/:id/edit_update' => 'users#edit_update'
+  post 'follow/:id' => 'follower#create'
 
-  post 'users/:id/show_update' => 'users#show_update'
 
-  resources :users, except: [:update]
+
+  resources :users
+  resources :follower, only: [:destroy]
   resources :posts, except: [:show, :index]
   resources :comments, only: [:create, :destroy, :update]
 

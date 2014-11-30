@@ -13,7 +13,7 @@ class HomeController < ApplicationController
 		@user = User.where(email: user_params[:email]).first
 	  if @user && @user.password == user_params[:password]
 	  	session[:user_id] = @user.id
-	  	redirect_to "/home/dash"
+	  	redirect_to "/home/#{@user.id}/dash"
 	  else 
 	  	flash[:alert] = "login failed; please try again."
 	  	redirect_to "/"
@@ -22,12 +22,13 @@ class HomeController < ApplicationController
 
 	def dash
 		current_user
-		@users = User.all.sort_by{|username| User.username.downcase}
+		@users = User.all.order(:username)
+		@post = Post.new
 		if @current_user 
 	      @followers = @current_user.followers
-	      @followees = @current_user.followees
-	       	if !@following.empty?
-	            @following_posts = @followees.map(&:posts).flatten.sort_by(&:created_at)
+	      @leaders = @current_user.leaders
+	       	if !@leaders.empty?
+	            @following_posts = @leaders.map(&:posts).flatten.sort_by(&:created_at)
 	        else 
 	            @following_posts = []
 	        end

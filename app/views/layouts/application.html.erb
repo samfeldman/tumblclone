@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Tumblclone</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-	<%if session[:user_id] %>
-		<nav>
-			<ul>
-				<li><a href="<%= /home/destroy %>">logout</a>
-				</li>
-				<li><a href="<%= /users/#{@current_user.id}/edit %>">settings</a>
-				</li>
-				<li><a href="<%= /users/#{@current_user.id} %>">blog</a>
-				</li>
-				<li><a href="<%= /users/#{@current_user.id}/dash %>">dashboard</a>
-				</li>
-			</ul>
-		</nav>
-	<% end %>
-	<div class="wrapper">
-		<%= yield %>
-	</div>
-</body>
+	<head>
+	  <title>Tumblclone</title>
+	  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	  <%= csrf_meta_tags %>
+	</head>
+	<body>
+		<% if @current_user != nil %>
+			<nav>
+				<ul>
+					<li><a href="/home/destroy">logout</a>
+					</li>
+					<li><a href=<%="/users/#{@current_user.id}/edit"%>>settings</a>
+					</li>
+					<li><a href=<%="/users/#{@current_user.id}"%>>blog</a>
+					</li>
+					<li><a href=<%="/home/#{@current_user.id}/dash"%>>dashboard</a>
+					</li>
+				</ul>
+			</nav>
+		<% end %>
+		<div class="wrapper">
+			<%= yield %>
+		</div>
+	</body>
 </html>

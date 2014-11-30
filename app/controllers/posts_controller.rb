@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   def create
     current_user
     @post = Post.new(post_params)
+    params[post_params][:user_id] = @current_user.id
     if @post.save
       flash[:notice] = "your post was saved!"
     else 

@@ -1,14 +1,15 @@
 class UsersController < ApplicationController
   
   def new
-   #automatic sign-up page
+   @user = User.new
   end
 
   def create
     @user = User.new(user_params)
     if @user.save 
       session[:user_id] = @user.id
-      redirect_to "/home/dash"
+      p "session saved"
+      redirect_to "/home/#{@user.id}/dash"
     else 
       flash[:alert] = @user.errors.full_messages
       redirect_to :back
@@ -19,7 +20,8 @@ class UsersController < ApplicationController
     current_user
     @user = User.find(params[:id])
     @posts = Post.where(user_id: params[:id])
-    @followers = @user.followers.all.sort_bye{|username| Follow.username.downcase}
+    @follow = Follower.where(follower_id: @current_user.id, leader_id: params[:id]).first
+    @followers = @user.followers.all.order(:username)
   end
 
   def edit
@@ -27,7 +29,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def edit_update
+  def update
     current_user
     @user = User.find(params[:id])
     if @current_user.id == @user.id
@@ -36,19 +38,7 @@ class UsersController < ApplicationController
     else
       flash[:alert] = "updates not saved; please try again."
     end
-    redirect_to "/users/#{@user.id}/edit"
-  end
-
-  def show_update
-    current_user
-    @user = User.find(params[:id])
-    if @current_user.id == @user.id
-      @user.update(user_params)
-      flash[:notice] = "updates saved!"
-    else
-      flash[:alert] = "updates not saved; please try again."
-    end
-    redirect_to "/users/#{@user.id}/show"
+    redirect_to :back
   end
 
   def destroy
@@ -67,7 +57,7 @@ class UsersController < ApplicationController
 
   
   def user_params
-    params.require(:user).permit(:email, :password, :title, :username)
+    params.require(:user).permit(:email, :password, :username, :title, :aboutme)
   end
 
 end

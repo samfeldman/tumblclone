@@ -9,20 +9,20 @@ class User < ActiveRecord::Base
 
 	has_many :followerships, 
 		class_name: "Follower",
-		foreign_key: :follower_id
+		foreign_key: :follower_id,
 		dependent: :destroy
 
-	has_many :followeeships,
+	has_many :leaderships,
 		class_name: "Follower",
-		foreign_key: :followee_id
+		foreign_key: :leader_id,
 		dependent: :destroy
 
 	has_many :followers,
-		through: :followeeships
+		through: :leaderships,
 		source: :follower
 
-	has_many :followees,
+	has_many :leaders,
 		through: :followerships,
-		source: :followee
+		source: :leader
 		
 end
