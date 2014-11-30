@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save 
+      @follow = Follower.new(follower_id: @user.id, leader_id: @user.id)
+      @follow.save
       session[:user_id] = @user.id
       p "session saved"
       redirect_to "/home/#{@user.id}/dash"

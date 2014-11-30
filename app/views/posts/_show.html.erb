@@ -1,53 +1,22 @@
-<li class="post_update">
+
 	<% if @current_user.id == post.user_id %>
 		<% flash[:alert] if flash[:alert] %>
-		<%= form_for @post do |f| %>
-			<%= f.text_field :title %>
-			<%= f.text_field :text %>
-			<%= f.submit "update post" %>
+		<%= form_for post do |f| %>
+			<li class="post_title"><%= f.text_field :title %></li>
+			<li class="post_text"><%= f.text_field :text %></li>
+			<li class="update_button"><%= f.submit "update post" %></li>
 		<% end %>
 	<% else %>
-		<%= "#{ post.title }" %>
-		<%= "#{ post.text }" %>
+		<li class="post_title"><%= "#{ post.title }" %></li>
+		<li class="post_text"><%= "#{ post.text }" %></li>
 	<% end %>
+
+<li class="post_info">by <a href=<%= "/users/#{ post.user_id }" %>> <%= "#{ post.user.username }" %></a>
 </li>
-<li class="post_author">by <a href=<%= "/users/#{ post.user_id }" %>> <%= "#{ post.user.username }" %></a>
-</li>
-<li class="post_timestamp">last updated <%= "#{ post.created_at }" %>
+<li class="post_info">last updated <%= "#{ post.created_at }" %>
 </li>
 <% if @current_user.id == post.user_id %>
-	<li class="post_delete"><a href=<%= "/posts/#{ post.id }/delete" %>>delete</a><%= flash[:post_delete] if flash[:post_delete] %>
+	<li class="post_info"><a href=<%= "/posts/#{ post.id }/delete" %>>delete</a>
 	</li>
 <% end %>
-
-
-<% if !@comments.empty? %>
-	<% @comments.each do |comment| %>
-		<li class="post_comment">
-			<ul>
-				<li class="comment_text">
-					<% if @current_user.id == comment.user_id %>
-						<% flash[:alert] if flash[:alert] %>
-						<form action=<%= "/comments/#{comment.id}" %> method="POST">
-						<textarea name="text"><%= "#{comment.text}" %></textarea>
-						<input type="submit" name="update" value="update comment">
-						</form>
-					<% else %>
-						<%= "#{ comment.text }" %>
-					<% end %>
-				</li>
-				<li class="comment_author">by <a href=<%= "/users/#{ comment.user_id }" %>> <%= "#{ comment.user.username }" %></a>
-				</li>
-				<% if @current_user.id == comment.user_id %>
-					<li class="comment_delete"><a href=<%= "/posts/#{ post.id }/delete" %>>delete</a><%= flash[:post_delete] if flash[:post_delete] %>
-					</li>
-				<% end %>
-			</ul>
-		</li>
-	<% end %>
-<% end %>
-
-
-
-
-
+<%= flash[:post_delete] if flash[:post_delete] %>

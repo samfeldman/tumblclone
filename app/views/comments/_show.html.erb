@@ -1,0 +1,26 @@
+<% if !@comments.empty? %>
+	<% @comments.each do |comment| %>
+		<li class="post_comment">
+			<ul>
+				<li class="comment_text">
+					<% if @current_user.id == comment.user_id %>
+						<% flash[:alert] if flash[:alert] %>
+						<form action=<%= "/comments/#{comment.id}" %> method="POST">
+						<textarea name="text"><%= "#{comment.text}" %></textarea>
+						<input type="submit" name="update" value="update comment">
+						</form>
+					<% else %>
+						<%= "#{ comment.text }" %>
+					<% end %>
+				</li>
+				<li class="comment_author">by <a href=<%= "/users/#{ comment.user_id }" %>> <%= "#{ comment.user.username }" %></a>
+				</li>
+				<% if @current_user.id == comment.user_id %>
+					<li class="comment_delete"><a href=<%= "/posts/#{ post.id }/delete" %>>delete</a><%= flash[:post_delete] if flash[:post_delete] %>
+					</li>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+<% end %>
+

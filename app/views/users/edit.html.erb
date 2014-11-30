@@ -1,9 +1,10 @@
 <h1>settings</h1>
-	<% if @current_user == @user.id %>
+	<% if @current_user.id == @user.id %>
 		<%= form_for @user do |f| %>
-			<%= f.text_field :username, "#{ user.username }" %>
-			<%= f.email_field :email, "#{ user.email }" %>
-			<%= f.password_field :password, "#{ user.password }" %>
+			<%= f.text_field :username %>
+			<%= f.email_field :email %>
+			<%= f.password_field :password, :placeholder => "type new password here" %>
+			<%= f.password_field :password_confirmation, :placeholder => "confirm new password" %>
 			<%= f.submit "update" %>
 		<% end %>
 	<% else %>

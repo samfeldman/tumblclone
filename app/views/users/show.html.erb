@@ -1,37 +1,51 @@
-<%= flash[:notice] if flash[:notice] %>
-<%= flash[:alert] if flash[:alert] %>
+<div class="blog_head">
 
-<% if @current_user.id == @user.id %> 
-	<%= form_for @user do |f| %>
-		<%= f.text_field :title %>
-		<h2>about me</h2>
-		<%= f.text_area :aboutme %>
-		<%= f.submit "update" %>
-	<% end %>
-<% else %>
-	<h1><%="#{ @user.title }"%></h1> 
-	<% if @follow %>
-		<%= link_to( ("unfollow"), "/follow/#{ @user.id }", method: :delete) %>
+	<%= flash[:notice] if flash[:notice] %>
+	<%= flash[:alert] if flash[:alert] %>
+
+	<% if @current_user.id == @user.id %> 
+		<%= form_for @user do |f| %>
+			<h1 class="blog_title">
+				<%= f.text_field :title, :placeholder => "title" %>
+			</h1>
+			<h2 class="aboutme_title">about me</h2>
+			<p class="aboutme_text">
+				<%= f.text_area :aboutme, :placeholder => "about me text" %>
+			</p>
+			<div class="blog_update_button"><%= f.submit "update" %></div>
+		<% end %>
 	<% else %>
-		<%= link_to( ("follow"), "/follow/#{ @user.id }", method: :post) %>
+		<h1 class="blog_title"><%="#{ @user.title }"%></h1> 
+		<div class="follow_button">
+			<% if @follow %>
+				<%= link_to( ("unfollow"), "/follow/#{ @user.id }", method: :delete) %>
+			<% else %>
+				<%= link_to( ("follow"), "/follow/#{ @user.id }", method: :post) %>
+			<% end %>
+		</div>
+		<h2 class="aboutme_title">about me</h2> 
+		<p class="aboutme_text"><%="#{ @user.aboutme }"%><p>
 	<% end %>
-	<h2>about me</h2> 
-	<p><%="#{ @user.aboutme }"%><p>
-<% end %>
 
-<ul>
+</div>
+
+<div class="post_list">
 	<% @posts.each do |post| %>
-		<li>
+		<ul class="post">
 			<%= render partial: "./posts/show",
            		locals: { post: post } %>
-		</li>
+		</ul>
 	<% end %>
-</ul>
 
-<h2 class="follow_list">followers</h2>
-<% @followers.each do |follower| %>
-	<li>
-		<a href=<%= "/users/#{ follower.id }" %>> <%= "#{ follower.username }" %></a>
-	</li>
+</div>
+
+<div class="user_list_wrapper">
+	<h2>followers</h2>
+	<ul class="user_list">
+		<% @followers.each do |follower| %>
+			<li class="users">
+				<a href=<%= "/users/#{ follower.id }" %>> <%= "#{ follower.username }" %></a>
+			</li>
+	</ul>
 <% end %>
 

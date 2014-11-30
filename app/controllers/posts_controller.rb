@@ -3,12 +3,13 @@ class PostsController < ApplicationController
   def create
     current_user
     @post = Post.new(post_params)
-    params[post_params][:user_id] = @current_user.id
+    @post.user_id = session[:user_id]
     if @post.save
       flash[:notice] = "your post was saved!"
     else 
       flash[:alert] = @post.errors.full_messages
     end
+
     redirect_to "/home/#{@current_user.id}/dash"
   end
 
@@ -37,7 +38,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:user_id, :text, :title)
+    params.require(:post).permit(:text, :title)
   end
 
 
