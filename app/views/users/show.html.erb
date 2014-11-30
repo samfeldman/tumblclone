@@ -30,13 +30,12 @@
 </div>
 
 <div class="post_list">
-	<% @posts.each do |post| %>
+	<% @posts.reverse.each do |post| %>
 		<ul class="post">
 			<%= render partial: "./posts/show",
            		locals: { post: post } %>
 		</ul>
 	<% end %>
-
 </div>
 
 <div class="user_list_wrapper">
@@ -44,8 +43,9 @@
 	<ul class="user_list">
 		<% @followers.each do |follower| %>
 			<li class="users">
-				<a href=<%= "/users/#{ follower.id }" %>> <%= "#{ follower.username }" %></a>
+				<a href=<%= "/users/#{ follower.id }" %>><%= "#{ follower.username }" %></a>
 			</li>
+		<% end %>
 	</ul>
-<% end %>
+</div>
 

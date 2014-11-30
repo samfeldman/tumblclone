@@ -16,7 +16,8 @@
 				<li class="comment_author">by <a href=<%= "/users/#{ comment.user_id }" %>> <%= "#{ comment.user.username }" %></a>
 				</li>
 				<% if @current_user.id == comment.user_id %>
-					<li class="comment_delete"><a href=<%= "/posts/#{ post.id }/delete" %>>delete</a><%= flash[:post_delete] if flash[:post_delete] %>
+					<li class="comment_delete"><%= link_to ("delete"), "/comments/#{ comment.id }", method: :delete %>
+						<%= flash[:delete] if flash[:delete]
 					</li>
 				<% end %>
 			</ul>

@@ -7,6 +7,7 @@
 			<%= f.password_field :password_confirmation, :placeholder => "confirm new password" %>
 			<%= f.submit "update" %>
 		<% end %>
+		<%= link_to ("delete user"), "/users/#{ @user.id }", method: :delete %>
 	<% else %>
 		<h2>you do not have access, go away! :)</h2>
 	<% end %>

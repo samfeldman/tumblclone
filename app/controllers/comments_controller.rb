@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   def create
-  	@comment = Comment.new(user_id: 
+  	@comment = Comment.new
   end
 
   def update

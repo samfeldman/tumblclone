@@ -33,6 +33,7 @@ class HomeController < ApplicationController
 	            @following_posts = []
 	        end
 	    end
+	    flash[:delete] = "post deleted"
 
 	end
 

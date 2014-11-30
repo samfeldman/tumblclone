@@ -24,6 +24,7 @@ class UsersController < ApplicationController
     @posts = Post.where(user_id: params[:id])
     @follow = Follower.where(follower_id: @current_user.id, leader_id: params[:id]).first
     @followers = @user.followers.all.order(:username)
+    flash[:delete] = "post deleted"
   end
 
   def edit

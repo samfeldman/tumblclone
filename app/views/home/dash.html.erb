@@ -16,7 +16,7 @@
 
 <div class="post_list">
 	<% if !@following_posts.empty? %>
-		<% @following_posts.each do |post| %>
+		<% @following_posts.reverse.each do |post| %>
 			<ul class="post">
     			<%= render partial: "./posts/show",
                		locals: { post: post } %>
