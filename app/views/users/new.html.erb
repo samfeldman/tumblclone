@@ -1,13 +1,5 @@
 <h1>sign up!</h1>
 
-<% if flash[:alert] %>
-	<ul>
-	<% flash[:alert].each do |message| %>
-	<li><%= message.downcase %></li>
-	<% end %>
-	</ul>
-<% end %>
-
 <%= form_for @user do |f| %>
 	<%= f.text_field :username, :placeholder => "username" %>
 	<%= f.email_field :email, :placeholder => "email" %>

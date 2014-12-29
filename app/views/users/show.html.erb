@@ -1,8 +1,5 @@
 <div class="blog_head">
 
-	<%= flash[:notice] if flash[:notice] %>
-	<%= flash[:alert] if flash[:alert] %>
-
 	<% if @current_user.id == @user.id %> 
 		<%= form_for @user do |f| %>
 			<h1 class="blog_title">

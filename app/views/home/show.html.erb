@@ -1,7 +1,5 @@
 <h1>login</h1>
 
-<%= flash[:alert] if flash[:alert]%>
-
 <%= form_tag('/home/create', method: "POST") do %>
 	<%= fields_for :user do |ff| %>
 		<%= ff.email_field(:email, :placeholder => "email") %>

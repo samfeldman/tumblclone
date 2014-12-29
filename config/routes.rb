@@ -14,8 +14,9 @@ Rails.application.routes.draw do
 
   resources :users
   resources :follower, only: [:destroy]
-  resources :posts, except: [:show, :index]
-  resources :comments, only: [:create, :destroy, :update]
+  resources :posts, except: [:index] do
+    resources :comments, only: [:create, :destroy, :update]
+  end
 
 
 

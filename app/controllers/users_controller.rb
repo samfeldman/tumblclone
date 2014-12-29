@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save 
+    if @user.save!
       @follow = Follower.new(follower_id: @user.id, leader_id: @user.id)
       @follow.save
       session[:user_id] = @user.id
@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   def show
     current_user
     @user = User.find(params[:id])
+    @post = Post.new
     @posts = Post.where(user_id: params[:id])
     @follow = Follower.where(follower_id: @current_user.id, leader_id: params[:id]).first
     @followers = @user.followers.all.order(:username)
