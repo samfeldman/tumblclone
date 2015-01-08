@@ -1,48 +1,49 @@
-<div class="blog_head">
-
-	<% if @current_user.id == @user.id %> 
-		<%= form_for @user do |f| %>
-			<h1 class="blog_title">
-				<%= f.text_field :title, :placeholder => "title" %>
-			</h1>
-			<h2 class="aboutme_title">about me</h2>
-			<p class="aboutme_text">
-				<%= f.text_area :aboutme, :placeholder => "about me text" %>
-			</p>
-			<div class="blog_update_button"><%= f.submit "update" %></div>
-		<% end %>
-	<% else %>
-		<h1 class="blog_title"><%="#{ @user.title }"%></h1> 
-		<div class="follow_button">
-			<% if @follow %>
-				<%= link_to( ("unfollow"), "/follow/#{ @user.id }", method: :delete) %>
-			<% else %>
-				<%= link_to( ("follow"), "/follow/#{ @user.id }", method: :post) %>
+<section class="usersshow">
+	<div class="blog_head">
+		<% if @current_user.id == @user.id %> 
+			<%= form_for @user do |f| %>
+				<h1 class="blog_title">
+					<%= f.text_field :title, :placeholder => "title" %>
+				</h1>
+				<h2 class="aboutme_title">about me</h2>
+				<p class="aboutme_text">
+					<%= f.text_area :aboutme, :placeholder => "about me text" %>
+				</p>
+				<div class="blog_update_button"><%= f.submit "update" %></div>
 			<% end %>
-		</div>
-		<h2 class="aboutme_title">about me</h2> 
-		<p class="aboutme_text"><%="#{ @user.aboutme }"%><p>
-	<% end %>
-
-</div>
-
-<div class="post_list">
-	<% @posts.reverse.each do |post| %>
-		<ul class="post">
-			<%= render partial: "./posts/show",
-           		locals: { post: post } %>
-		</ul>
-	<% end %>
-</div>
-
-<div class="user_list_wrapper">
-	<h2>followers</h2>
-	<ul class="user_list">
-		<% @followers.each do |follower| %>
-			<li class="users">
-				<a href=<%= "/users/#{ follower.id }" %>><%= "#{ follower.username }" %></a>
-			</li>
+		<% else %>
+			<h1 class="blog_title"><%="#{ @user.title }"%></h1> 
+			<h2 class="aboutme_title">about me</h2>
+			<% if @user.aboutme = nil %> 
+				<p class="aboutme_text">this user has no about me!</p>
+			<% else %>
+				<p class="aboutme_text"><%="#{ @user.aboutme }"%></p>
+			<% end %>
+			<button>
+					<% if @follow %>
+						<%= link_to( ("unfollow"), "/follow/#{ @user.id }", method: :delete) %>
+					<% else %>
+						<%= link_to( ("follow"), "/follow/#{ @user.id }", method: :post) %>
+					<% end %>
+			</button>
 		<% end %>
-	</ul>
-</div>
-
+		<div class="user_list_wrapper drop_touch">
+			<h2>followers</h2>
+			<ul class="user_list base_div drop_down">
+				<% @followers.each do |follower| %>
+					<li class="users">
+						<a href=<%= "/users/#{ follower.id }" %>><%= "#{ follower.username }" %></a>
+					</li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+	<div class="post_list">
+		<% @posts.reverse.each do |post| %>
+			<ul class="post base_div">
+				<%= render partial: "./posts/show",
+	           		locals: { post: post } %>
+			</ul>
+		<% end %>
+	</div>
+</section>

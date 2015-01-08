@@ -1,13 +1,17 @@
-<h1>login</h1>
+<section class="homeshow">
 
-<%= form_tag('/home/create', method: "POST") do %>
-	<%= fields_for :user do |ff| %>
-		<%= ff.email_field(:email, :placeholder => "email") %>
-		<%= ff.password_field(:password, :placeholder => "password") %>
-		<%= ff.submit("log in!") %>
+	<h1>login</h1>
+
+	<%= form_tag('/home/create', method: "POST") do %>
+		<%= fields_for :user do |ff| %>
+			<%= ff.email_field(:email, :placeholder => "email") %>
+			<%= ff.password_field(:password, :placeholder => "password") %>
+			<%= ff.submit("log in!") %>
+		<% end %>
 	<% end %>
-<% end %>
 
-<h2>not signed up yet?<h2>
+	<h2>not signed up yet?</h2>
 
-<%= link_to(("sign up!"), "/users/new")%>
+	<%= link_to(("sign up!"), "/users/new")%>
+
+</section>

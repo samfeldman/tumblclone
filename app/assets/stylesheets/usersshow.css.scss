@@ -1,0 +1,59 @@
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.usersshow textarea {
+	display: block;
+	width: 100%;
+}
+
+.usershow .post {
+	box-sizing: border-box;
+}
+
+.blog_head {
+	width: 100%;
+	text-align: center;
+}
+
+#user_title {
+	font-size: 30px;
+}
+
+#user_title, #user_aboutme {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.edit_user {
+	width: 100%;
+	background: none;
+	border: none;
+}
+
+.blog_update_button > input {
+	margin: 0 auto;
+}
+
+.usersshow button > a {
+	color: black;
+}
+
+.user_list_wrapper {
+	min-width: 100%;
+}
+
+.drop_touch > .drop_down {
+	float: none;
+}
+
+.usersshow .edit_post {
+	display: block;
+	padding-right: 20px;
+}
+
+.usersshow h2 {
+	margin-bottom: 5px;
+}
+
+

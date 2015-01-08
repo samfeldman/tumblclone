@@ -1,0 +1,59 @@
+// Place all the styles related to the Follower controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.homedash {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.left {
+	display: block;
+	float: left;
+	flex-grow: 2;
+	margin-right: 15px;
+}
+
+.right {
+	display: block;
+	float: left;
+	flex-grow: 1;
+	margin-left: 15px;
+}
+
+.user_list {
+	list-style: none;
+}
+
+.post_top, .post_bottom {
+	margin: 10px;
+}
+
+.homedash > .left > .post_list > .post, .homedash > .right > .new_post > form {
+  padding-right: 30px;
+}
+
+.new_post > form {
+	display: block;
+	float: left;
+	max-width: 100%;
+}
+
+.new_post > form > input, .new_post > form > textarea {
+	max-width: 100%;
+}
+
+.user_list_wrapper {
+	display: block;
+	float: left;
+}
+
+.border {
+	margin: 0 0 20px 0;
+	padding: 0 0 20px 0;
+	border-bottom-style: solid; 
+	border-bottom-width: 2px;
+	border-bottom-color: #ECBCE3;
+
+}

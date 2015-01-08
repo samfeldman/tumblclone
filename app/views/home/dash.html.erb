@@ -1,40 +1,43 @@
-<h1>dashboard</h1>
-
-<div class="new_post" >
-	<h2>post something!</h2>
-	<% if @current_user.id == params[:id].to_i %>
-		<%= form_for @post do |f| %>
-			<%= f.text_field :title, :placeholder => "title" %>
-			<%= f.text_field :text, :placeholder => "text"%>
-			<%= f.submit "create post" %>
-		<% end %>
-	<% else %>
-		<h3>you can't make posts for someone else!</h3>
-	<% end %>
-			
-</div>
-
-<div class="post_list">
-	<% if !@following_posts.empty? %>
-		<% @following_posts.reverse.each do |post| %>
-			<ul class="post">
-    			<%= render partial: "./posts/show",
-               		locals: { post: post } %>
+<section class="homedash">
+	<section class="left">
+		<h1>dashboard</h1>
+		<div class="post_list clearfix">
+			<% if !@following_posts.empty? %>
+				<% @following_posts.reverse.each do |post| %>
+					<ul class="base_div post">
+		    			<%= render partial: "./posts/show",
+		               		locals: { post: post } %>
+					</ul>
+				<% end %>
+			<% else %>
+				<h3 class="base_div">no posts to show! make some posts or make sure you are following other users.</h3>
+			<% end %>
+		</div>
+	</section>
+	<section class="right">
+		<div class="new_post">
+			<h1>post!</h1>
+			<% if @current_user.id == params[:id].to_i %>
+				<%= form_for @post do |f| %>
+					<%= f.text_field :title, :placeholder => "title" %>
+					<%= f.text_area :text, :placeholder => "text"%>
+					<%= f.submit "create post" %>
+				<% end %>
+			<% else %>
+				<h3>you can't make posts for someone else!</h3>
+			<% end %>		
+		</div>
+		<div class="user_list_wrapper">
+			<h1>user list</h1>
+			<ul class="user_list base_div">
+				<% @users.each do |user| %>
+					<li class="user">
+					<a href="/users/<%= "#{ user.id }" %>"><%= "#{ user.username }"%>
+					</a>
+					</li>
+				<% end %>
 			</ul>
-		<% end %>
-	<% else %>
-		<h3>no posts to show! make some posts or make sure you are following other users.</h3>
-	<% end %>
-</div>
+		</div>
+	</section>
 
-<div class="user_list_wrapper">
-	<h2>user list</h2>
-	<ul class="user_list">
-		<% @users.each do |user| %>
-			<li class="user">
-			<a href="/users/<%= "#{ user.id }" %>"><%= "#{ user.username }"%>
-			</a>
-			</li>
-		<% end %>
-	</ul>
-</div>
+</section>

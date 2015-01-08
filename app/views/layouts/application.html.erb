@@ -7,9 +7,12 @@
 	  <%= csrf_meta_tags %>
 	</head>
 	<body>
-		<% if @current_user != nil %>
-			<nav>
-				<ul>
+		<nav>
+			<div class="site_title">
+			tumblclone
+			</div>
+			<% if @current_user != nil %>
+				<ul class="topnav">
 					<li><a href="/home/destroy">logout</a>
 					</li>
 					<li><a href=<%="/users/#{@current_user.id}/edit"%>>settings</a>
@@ -19,17 +22,19 @@
 					<li><a href=<%="/home/#{@current_user.id}/dash"%>>dashboard</a>
 					</li>
 				</ul>
-			</nav>
-		<% end %>
-		<div class="wrapper">
-			<div class="flash">
-				<% if flash[:notice] %>
+			<% end %>
+		</nav>
+		<div class="wrapper clearfix">
+			<% if flash[:notice] %>
+				<div class="notice">
 					<%= flash[:notice] %>
-				<% end %> 
-				<% if flash[:alert] %>
-					<%= flash[:alert] %> 
-				<% end %>
-			</div>
+				</div>
+			<% end %> 
+			<% if flash[:alert] %>
+				<div class="alert">
+					<%= flash[:alert] %>
+				</div>
+			<% end %>
 			<%= yield %>
 		</div>
 	</body>
