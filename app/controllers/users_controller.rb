@@ -10,7 +10,6 @@ class UsersController < ApplicationController
       @follow = Follower.new(follower_id: @user.id, leader_id: @user.id)
       @follow.save
       session[:user_id] = @user.id
-      p "session saved"
       redirect_to "/home/#{@user.id}/dash"
     else 
       flash[:alert] = @user.errors.full_messages

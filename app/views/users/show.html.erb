@@ -29,7 +29,7 @@
 		<% end %>
 		<div class="user_list_wrapper drop_touch">
 			<h2>followers</h2>
-			<ul class="user_list base_div drop_down">
+			<ul class="user_list drop_down">
 				<% @followers.each do |follower| %>
 					<li class="users">
 						<a href=<%= "/users/#{ follower.id }" %>><%= "#{ follower.username }" %></a>

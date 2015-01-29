@@ -41,24 +41,7 @@ nav {
 
 .topnav > li {
   float: right;
-  margin: 10px 0 10px 0; }
-
-.drop_down {
-  visibility: hidden;
-  opacity: 0;
-  float: right;
-  margin: 20px 0 20px 0;
-  list-style: none; }
-
-.drop_touch {
-  width: 96px; }
-
-.drop_touch:hover > .drop_down {
-  visibility: visible;
-  opacity: 1;
-  float: right;
-  margin: 20px 0 20px 0;
-  list-style: none; }
+  margin: 10px 15px; }
 
 input, textarea {
   background: #FAE7F7;
@@ -100,6 +83,23 @@ form, .base_div, .drop_down, .drop_touch:hover > .drop_down {
   box-sizing: border-box;
   outline: none;
 }
+
+.drop_down {
+  width: 100px;
+  visibility: hidden;
+  opacity: 0;
+  margin: 20px auto;
+  list-style: none; }
+
+.drop_touch {
+  width: 96px; }
+
+.drop_touch:hover > .drop_down {
+  width: 100px;
+  visibility: visible;
+  opacity: 1;
+  margin: 20px auto;
+  list-style: none; }
 
 form {
 	display: inline-block;
